@@ -15,7 +15,7 @@
 			<button class="navbar-toggler toggler-right" data-target="#mynavbar" data-toggle="collapse">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a href="#" class="navbar-brand mr-3">Leave Management</a>
+			<a href="#" class="navbar-brand mr-3">Employee Leave System</a>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				
 				<ul class="navbar-nav ml-auto">

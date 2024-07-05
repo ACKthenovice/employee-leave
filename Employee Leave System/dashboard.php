@@ -16,7 +16,7 @@
 			<button class="navbar-toggler toggler-right" data-target="#mynavbar" data-toggle="collapse">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a href="#" class="navbar-brand mr-3">Simple Online Leave Management</a>
+			<a href="#" class="navbar-brand mr-3">Employee Leave System</a>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav">
 					<li class="nav-item px-2"><a href="#" class="nav-link active">Logged in as <?php echo $_SESSION['email']?></a></li>
@@ -57,7 +57,9 @@
 				<div class="col-md-3">
 					<a href="#" class="btn btn-success btn-block" style="border-radius:0%;" data-toggle="modal" data-target="#addUsertModal"><i class="fa fa-check"></i> Approved Leaves</a>
 				</div>
-				
+				<div class="col-md-2">
+					<a href="#" class="btn btn-danger btn-block" style="border-radius:0%;" data-toggle="modal" data-target="#addRejModal"><i class="fa-solid fa-xmark"></i> Rejected</a>
+				</div>
 			</div>
 		</div>
 	
@@ -282,11 +284,66 @@
 		</div>
 	</div>
   
+	<div class="modal fade" id="addRejModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-danger text-white">
+					<div class="modal-title">
+						<h5>Rejected Leaves</h5>
+					</div>
+					<button class="close" data-dismiss="modal"><span>&times;</span></button>
+				</div>
+				<div class="modal-body">
+				<table class="table table-bordered table-hover table-striped">
+							<thead>
+								<th>#</th>
+								<th>Name</th>
+								<th>Department</th>
+								<th>Date</th>
+								<th>Reason</th>
+								<th>Status</th>
+							</thead>
+							 <tbody>
+							 	<?php 
+									$sql = "SELECT * FROM leaves WHERE status = 2 AND email='".$_SESSION['email']."'";
+									$que = mysqli_query($con,$sql);
+									$cnt = 1;
+									while ($result = mysqli_fetch_assoc($que)) {
+									?>
+
+									
+							 	<tr>
+									<td><?php echo $cnt;?></td>
+							 		<td><?php echo $result['name']; ?></td>
+							 		<td><?php echo $result['department']; ?></td>
+							 		<td><?php echo $result['leavedate']; ?></td>
+							 		<td><?php echo $result['leavereason']; ?></td>
+							 		<td>
+							 			<?php 
+							 			if ($result['status'] == 0) {
+											echo "<span class='badge badge-warning'>Pending</span>";
+							 			}
+							 			else{
+											echo "<span class='badge badge-danger'>Rejected</span>";
+							 			}
+							 	$cnt++;	}
+							 		 ?>
+							 		</td>
+							 	</tr>
+
+							 </tbody>
+						</table>
+					
+				</div>
+			
+			</div>
+		</div>
+	</div>
   
   <script src="js/jquery.min.js"></script>
   <script src="js/tether.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/4.24.0/standard/ckeditor.js"></script>
   <script>
 	CKEDITOR.replace('editor1');
   </script>
